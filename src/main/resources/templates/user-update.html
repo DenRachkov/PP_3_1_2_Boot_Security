@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body><h2>Update User</h2>
+<form th:method="POST" th:action="@{/admin/update(id=${user.id})}" th:object="${user}">
+
+    <input type ="hidden" name="id" th:value="${user.id}">
+
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+    </p>
+    <br>
+    <br>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password">
+    <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+    </p>
+    <br>
+    <br>
+    <th:block th:each="role: ${allRoles}">
+        <input type="checkbox" th:field="*{roles}"
+               th:text="${role.name}" th:value="${role.id}" class="m-2" />
+    </th:block>
+    <br>
+    <br>
+    <input type="submit" value="Update User">
+    <br>
+    <br>
+    <form th:action="@{/admin/addUser}" th:method="get">
+        <input type="submit" value="List Users"/>
+    </form>
+
+</form>
+</body>
+</html>
+

@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<table border="5" cellpadding="10">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Password</th>
+    </tr>
+    </thead>
+    <tr th:each="users : ${user}">
+        <td th:utext="${user.id}">ID</td>
+        <td th:utext="${user.name}">LastName</td>
+        <td th:utext="${user.password}">Password</td>
+    </tr>
+</table>
+</br>
+<form th:action="@{/logout}" th:method="post">
+    <input type="submit" value="Logout"/>
 
-
+</form>
 </body>
 </html>
