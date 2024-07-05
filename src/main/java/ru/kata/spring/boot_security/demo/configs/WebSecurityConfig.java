@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.configs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,9 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
     @Autowired
-    public WebSecurityConfig(SecurityUserDetailsService securityUserDetailsService, SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig(@Lazy SecurityUserDetailsService securityUserDetailsService, SuccessUserHandler successUserHandler) {
         this.securityUserDetailsService = securityUserDetailsService;
-
         this.successUserHandler = successUserHandler;
     }
 

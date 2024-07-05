@@ -5,10 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.servises.AdminService;
 import ru.kata.spring.boot_security.demo.servises.RoleService;
+import ru.kata.spring.boot_security.demo.servises.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,27 +15,26 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final AdminService adminService;
+    private final UserService userService;
     private final RoleService roleService;
 
 
     @Autowired
-    public AdminController(AdminService adminService, RoleService roleService) {
-        this.adminService = adminService;
-
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
         this.roleService = roleService;
     }
 
     @GetMapping
     public String snowAllUsers(Model model) {
-        List<User> listUser = adminService.getAllUsers();
+        List<User> listUser = userService.getAllUsers();
         model.addAttribute("users", listUser);
         return "/admin";
     }
 
     @GetMapping("/update")
     public String updateUserForm(Model model, @RequestParam("id") long id) {
-        model.addAttribute("user", adminService.getUser(id));
+        model.addAttribute("user", userService.getUser(id));
         model.addAttribute("allRoles", roleService.getAllRoles());
         return "/user-update";
     }
@@ -48,13 +46,13 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "/user-update";
         }
-        adminService.updateUser(user, user.getRoles(), id);
+        userService.updateUser(user, user.getRoles(), id);
         return "redirect:/admin";
     }
 
     @GetMapping("/delete")
     public String deleteUser(@RequestParam("id") long id) {
-        adminService.deleteUser(id);
+        userService.deleteUser(id);
         return "redirect:/admin";
     }
 
@@ -69,7 +67,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "/addUser";
         }
-        adminService.save(user, user.getRoles());
+        userService.save(user, user.getRoles());
         return "redirect:/admin";
     }
 }
