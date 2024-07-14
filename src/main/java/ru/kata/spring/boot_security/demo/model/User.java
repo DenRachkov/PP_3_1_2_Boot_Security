@@ -106,6 +106,11 @@ public class User implements UserDetails {
     public String getRole() {
         return roles.toString();
     }
+    public String getModelRole() {
+        return roles.stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.joining(" "));
+    }
 
 
     public void setUsername(String username) {

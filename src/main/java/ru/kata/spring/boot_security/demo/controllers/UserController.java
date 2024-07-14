@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.servises.UserService;
 
@@ -25,6 +26,7 @@ public class UserController {
         if (user == null){
             throw new UsernameNotFoundException("User not found");
         }
+
         model.addAttribute("user", user);
         return "/user";
     }
