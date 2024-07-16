@@ -12,7 +12,7 @@
     <title>Hello, world!</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark" role="navigation">
+<div class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <h1 class="navbar-brand" th:text=" ${user.name} +' with roles: ' + ${user.modelRole}"></h1>
         <div>
@@ -21,23 +21,23 @@
             </form>
         </div>
     </div>
-</nav>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-2">
             <br><br>
             <ul class="nav nav-pills flex-column">
                 <li class="nav nav-pills flex-column">
-                    <a class="nav-link active" href="#" type="button">User</a>
+                    <a class="nav-link active" type="button">User</a>
                 </li>
             </ul>
         </div>
         <div class="col-md-10 bg-light">
             <br><br>
             <h2>User Information-page</h2>
-            <div class="tab-pane" id="admin-panel">
+            <div class="tab-pane">
                 <div class="tab-content">
-                    <div class="tab-pane show active" >
+                    <div class="tab-pane show active">
                         <div class="card rounded-0">
                             <h4 class="card-header">About user</h4>
                             <table class="table table-striped">
@@ -61,11 +61,8 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

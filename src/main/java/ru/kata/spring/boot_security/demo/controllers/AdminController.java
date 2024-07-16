@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,7 @@ import ru.kata.spring.boot_security.demo.servises.RoleService;
 import ru.kata.spring.boot_security.demo.servises.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,9 +28,15 @@ public class AdminController {
     }
 
     @GetMapping
-    public String snowAllUsers(Model model) {
+    public String snowAllUsers(Model model, Principal principal) {
         List<User> listUser = userService.getAllUsers();
+        User user = userService.findByUsername(principal.getName());
+        if (user == null){
+            throw new UsernameNotFoundException("User not found");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("users", listUser);
+        model.addAttribute("roles", roleService.getAllRoles());
         return "/admin";
     }
 
@@ -56,8 +64,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+
     @GetMapping("/addUser")
-    public String addUserForm(Model model, @ModelAttribute("user") User user) {
+    public String addUserForm(Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        if (user == null){
+            throw new UsernameNotFoundException("User not found");
+        }
+        model.addAttribute("user", user);
         model.addAttribute("allRoles", roleService.getAllRoles());
         return "/addUser";
     }
