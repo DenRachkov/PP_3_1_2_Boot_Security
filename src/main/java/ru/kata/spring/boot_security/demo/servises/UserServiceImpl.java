@@ -36,13 +36,17 @@ public class UserServiceImpl implements UserService {
         @Transactional
         public void updateUser(User user, List<Role> roles, Long id) {
             User userDB = userRepository.getById(id);
-            userDB.setUsername(user.getUsername());
+            userDB.setFirstName(user.getUsername());
+            userDB.setLastName(user.getLastName());
+            userDB.setAge(user.getAge());
+            userDB.setEmail(user.getEmail());
             String newPassword = user.getPassword();
             String oldPassword = userRepository.findByPassword(id);
 
             if (!Objects.equals(newPassword, oldPassword)){
                 userDB.setPassword(passwordEncoder.encode(user.getPassword()));
             }
+
 
             userDB.setRoles(roles);
             userRepository.save(userDB);
@@ -51,7 +55,7 @@ public class UserServiceImpl implements UserService {
         @Override
         @Transactional
         public void save(User user, List<Role> roles) {
-            user.setName(user.getUsername());
+            user.setFirstName(user.getUsername());
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRoles(roles);
             userRepository.save(user);
@@ -63,8 +67,8 @@ public class UserServiceImpl implements UserService {
         }
 
     @Override
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username);
+    public User findByUsername(String firstName){
+        return userRepository.findByUsername(firstName);
     }
 
 

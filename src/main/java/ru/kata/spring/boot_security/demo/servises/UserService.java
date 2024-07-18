@@ -12,6 +12,6 @@ public interface UserService {
     void updateUser(User user, List<Role> roles, Long id);
     void save (User user,List<Role> roles);
 
-    User findByUsername(String username);
+    User findByUsername(String firstName);
 
 }

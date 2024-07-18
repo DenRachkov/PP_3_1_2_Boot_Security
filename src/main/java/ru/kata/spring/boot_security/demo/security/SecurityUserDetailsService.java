@@ -21,10 +21,10 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.findByUsername (username);
+    public UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException {
+        User user = userService.findByUsername (firstName);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with username: " + firstName);
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
     }

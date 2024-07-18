@@ -14,7 +14,7 @@
 <body>
 <div class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <h1 class="navbar-brand" th:text=" ${user.name} +' with roles: ' + ${user.modelRole}"></h1>
+        <h1 class="navbar-brand" th:text=" ${user.firstName} +' with roles: ' + ${user.modelRole}"></h1>
         <div>
             <form class="d-flex" th:method="get" th:action="@{/logout}">
                 <button class="btn btn-dark text-secondary" type="submit">Logout</button>
@@ -44,14 +44,20 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Password</th>
                                     <th scope="col">Role</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <td th:text="${user.id}"></td>
-                                <td th:text="${user.name}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.age}"></td>
+                                <td th:text="${user.email}"></td>
                                 <td th:text="${user.password}"></td>
                                 <td th:text="${user.modelRole}"></td>
                                 </tbody>

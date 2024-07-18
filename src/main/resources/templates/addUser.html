@@ -14,7 +14,7 @@
 <body>
 <div class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand mb-0 h1" th:text=" ${user.name} +' with roles: ' + ${user.modelRole}"></a>
+        <a class="navbar-brand mb-0 h1" th:text=" ${user.firstName} +' with roles: ' + ${user.modelRole}"></a>
         <div>
             <form th:method="get" th:action="@{/logout}">
                 <button class="btn btn-dark text-secondary" type="submit">Logout</button>
@@ -41,7 +41,9 @@
             <div class="tab-pane fade show active">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link">Users table</a>
+                        <form th:method="get" th:action="@{/admin}">
+                            <button class="btn" type="submit">Users table</button>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active">New User</a>
@@ -55,10 +57,40 @@
                                 <div class="row bg-white">
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
-                                            <h4>Username</h4>
-                                            <input class="form-control" type="text" name="Username">
-                                            <p style="color: red" th:if="${#fields.hasErrors('name')}"
-                                               th:errors="*{name}">
+                                            <h4>First Name</h4>
+                                            <input class="form-control" type="text" name="firstName">
+                                            <p style="color: red" th:if="${#fields.hasErrors('firstName')}"
+                                               th:errors="*{firstName}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row bg-white">
+                                    <div class="col-4 mx-auto text-center">
+                                        <label class="container-fluid">
+                                            <h4>Last Name</h4>
+                                            <input class="form-control" type="text" name="lastName">
+                                            <p style="color: red" th:if="${#fields.hasErrors('lastName')}"
+                                               th:errors="*{lastName}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row bg-white">
+                                    <div class="col-4 mx-auto text-center">
+                                        <label class="container-fluid">
+                                            <h4>Age</h4>
+                                            <input class="form-control" type="text" name="age">
+                                            <p style="color: red" th:if="${#fields.hasErrors('age')}"
+                                               th:errors="*{age}">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row bg-white">
+                                    <div class="col-4 mx-auto text-center">
+                                        <label class="container-fluid">
+                                            <h4>Email</h4>
+                                            <input class="form-control" type="text" name="email">
+                                            <p style="color: red" th:if="${#fields.hasErrors('email')}"
+                                               th:errors="*{email}">
                                         </label>
                                     </div>
                                 </div>
@@ -84,6 +116,9 @@
                                         <br>
                                         <br>
                                         <button type="submit" class="btn btn-success">Add new User</button>
+                                        <button class="btn btn-danger" type="submit">
+                                            <a th:href="@{/admin}" style="color: white; text-decoration: none;">Close</a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>

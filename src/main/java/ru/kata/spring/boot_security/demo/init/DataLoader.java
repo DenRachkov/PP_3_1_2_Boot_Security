@@ -29,8 +29,8 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         createRolesIfNotExist();
-        addUser(new User("Admin", "root", roleRepository.findAllById(Collections.singleton(1L))));
-        addUser(new User("User", "root", roleRepository.findAllById(Collections.singleton(2L))));
+        addUser(new User("Admin", "Petrov", 35, "petrov@mail.ru", "root", roleRepository.findAllById(Collections.singleton(1L))));
+        addUser(new User("User", "Sidorov", 32, "sidorov@mail.ru", "root", roleRepository.findAllById(Collections.singleton(2L))));
 
 
     }

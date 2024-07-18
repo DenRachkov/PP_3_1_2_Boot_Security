@@ -27,6 +27,16 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+    @GetMapping("/user")
+    public String snowAdminUser (Model model, Principal principal){
+        User user = userService.findByUsername(principal.getName());
+        if (user == null){
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        model.addAttribute("user", user);
+        return "admin-user";
+    }
     @GetMapping
     public String snowAllUsers(Model model, Principal principal) {
         List<User> listUser = userService.getAllUsers();
