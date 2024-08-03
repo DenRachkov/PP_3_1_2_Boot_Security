@@ -22,56 +22,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-        @Transactional
-        public void deleteUser(long id) {
-            userRepository.deleteById(id);
-        }
-        @Override
-        public User getUser(long id) {
-            userRepository.getById(id);
-            return userRepository.getById(id);
-        }
-
-        @Override
-        @Transactional
-        public void updateUser(User user, List<Role> roles, Long id) {
-            User userDB = userRepository.getById(id);
-            userDB.setFirstName(user.getUsername());
-            userDB.setLastName(user.getLastName());
-            userDB.setAge(user.getAge());
-            userDB.setEmail(user.getEmail());
-            String newPassword = user.getPassword();
-            String oldPassword = userRepository.findByPassword(id);
-
-            if (!Objects.equals(newPassword, oldPassword)){
-                userDB.setPassword(passwordEncoder.encode(user.getPassword()));
-            }
-
-
-            userDB.setRoles(roles);
-            userRepository.save(userDB);
-        }
-
-        @Override
-        @Transactional
-        public void save(User user, List<Role> roles) {
-            user.setFirstName(user.getUsername());
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(roles);
-            userRepository.save(user);
-        }
-
-        @Override
-        public List<User> getAllUsers() {
-            return userRepository.findAll();
-        }
+    @Transactional
+    public void deleteUser(long id) {
+        userRepository.deleteById(id);
+    }
 
     @Override
-    public User findByUsername(String firstName){
-        return userRepository.findByUsername(firstName);
+    public User getUser(long id) {
+        return userRepository.findById(id).get();
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(User user, Long id) {
+        User userDB = userRepository.getById(id);
+        userDB.setLastName(user.getUsername());
+        userDB.setFirstName(user.getFirstName());
+        userDB.setAge(user.getAge());
+        userDB.setEmail(user.getEmail());
+        String newPassword = user.getPassword();
+        String oldPassword = userRepository.findByPassword(id);
+
+        if (!Objects.equals(newPassword, oldPassword)) {
+            userDB.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+
+        userDB.setRoles(user.getRoles());
+        userRepository.save(userDB);
+    }
+
+    @Override
+    @Transactional
+    public void save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
 
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findByUsername(String firstName) {
+        return userRepository.findByUsername(firstName);
+    }
 
 
 }

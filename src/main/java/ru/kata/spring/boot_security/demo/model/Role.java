@@ -34,6 +34,7 @@ public class Role {
     public String getName() {
         return name;
     }
+
     public String getRoleName() {
         return name;
     }
@@ -41,7 +42,6 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     @Override

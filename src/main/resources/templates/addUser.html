@@ -14,7 +14,7 @@
 <body>
 <div class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand mb-0 h1" th:text=" ${user.firstName} +' with roles: ' + ${user.modelRole}"></a>
+<!--        <a class="navbar-brand mb-0 h1" th:text=" ${user.firstName} +' with roles: ' + ${user.modelRole}"></a>-->
         <div>
             <form th:method="get" th:action="@{/logout}">
                 <button class="btn btn-dark text-secondary" type="submit">Logout</button>
@@ -53,14 +53,13 @@
                     <div class="tab-pane show active">
                         <div class="card rounded-0">
                             <h4 class="card-header">Add new User</h4>
-                            <form th:method="POST" th:action="@{/admin/addUser}" th:object="${user}">
+                            <form name="addForm">
+
                                 <div class="row bg-white">
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>First Name</h4>
-                                            <input class="form-control" type="text" name="firstName">
-                                            <p style="color: red" th:if="${#fields.hasErrors('firstName')}"
-                                               th:errors="*{firstName}">
+                                            <input class="form-control" type="text" name="firstName" id="firstnameNewUser">
                                         </label>
                                     </div>
                                 </div>
@@ -68,9 +67,7 @@
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>Last Name</h4>
-                                            <input class="form-control" type="text" name="lastName">
-                                            <p style="color: red" th:if="${#fields.hasErrors('lastName')}"
-                                               th:errors="*{lastName}">
+                                            <input class="form-control" type="text" name="lastName" id="lastnameNewUser">
                                         </label>
                                     </div>
                                 </div>
@@ -78,9 +75,7 @@
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>Age</h4>
-                                            <input class="form-control" type="text" name="age">
-                                            <p style="color: red" th:if="${#fields.hasErrors('age')}"
-                                               th:errors="*{age}">
+                                            <input class="form-control" type="text" name="age" id="ageNewUser">
                                         </label>
                                     </div>
                                 </div>
@@ -88,9 +83,7 @@
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>Email</h4>
-                                            <input class="form-control" type="text" name="email">
-                                            <p style="color: red" th:if="${#fields.hasErrors('email')}"
-                                               th:errors="*{email}">
+                                            <input class="form-control" type="text" name="email" id="emailNewUser">
                                         </label>
                                     </div>
                                 </div>
@@ -98,9 +91,7 @@
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>Password</h4>
-                                            <input class="form-control" type="text" name="Password">
-                                            <p style="color: red" th:if="${#fields.hasErrors('password')}"
-                                               th:errors="*{password}">
+                                            <input class="form-control" type="text" name="password" id="passwordNewUser">
                                         </label>
                                     </div>
                                 </div>
@@ -108,14 +99,15 @@
                                     <div class="col-4 mx-auto text-center">
                                         <label class="container-fluid">
                                             <h4>Role</h4>
-                                            <th:block th:each="role: ${allRoles}">
-                                                <input type="checkbox" th:field="*{roles}"
-                                                       th:text="${role.name}" th:value="${role.id}" class="m-2"/>
-                                            </th:block>
+                                            <select class="w-100" multiple
+                                                    id="rolesNewUser"
+                                                    name="roles" required size="2">
+                                            </select>
                                         </label>
                                         <br>
                                         <br>
-                                        <button type="submit" class="btn btn-success">Add new User</button>
+                                        <button type="submit" class="btn btn-secondary">Add new User</button>
+
                                         <button class="btn btn-danger" type="submit">
                                             <a th:href="@{/admin}" style="color: white; text-decoration: none;">Close</a>
                                         </button>
@@ -139,40 +131,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/add.js"></script>
+<script type="text/javascript" src="/js/getRoles.js"></script>
 </body>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>New User</title>-->
-<!--</head>-->
-<!--<body><h2>Add new user</h2>-->
-<!--<form th:method="POST" th:action="@{/admin/addUser}" th:object="${user}">-->
-
-<!--    <label>Enter name: </label>-->
-<!--    <input type="text" th:field="*{name}" id="firstName"/>-->
-<!--    <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">-->
-<!--        Incorrect name-->
-<!--    </p>-->
-<!--    <br/>-->
-
-<!--    <label>Enter password: </label>-->
-<!--    <input type="text" th:field="*{password}" id="lastName"/>-->
-<!--    <p style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">-->
-<!--        Incorrect password-->
-<!--    </p>-->
-<!--    <br/>-->
-
-<!--    <th:block th:each="role: ${allRoles}">-->
-<!--        <input type="checkbox" th:field="*{roles}"-->
-<!--               th:text="${role.name}" th:value="${role.id}" class="m-2" />-->
-<!--    </th:block>-->
-<!--    </p>-->
-<!--    <br/>-->
-
-<!--    <input type="submit" value="Save"/></form>-->
-<!--</body>-->
-<!--</html>-->

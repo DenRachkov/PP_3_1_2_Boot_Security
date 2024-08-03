@@ -9,8 +9,8 @@ public interface UserService {
     List<User> getAllUsers();
     void deleteUser(long id);
     User getUser(long id);
-    void updateUser(User user, List<Role> roles, Long id);
-    void save (User user,List<Role> roles);
+    void updateUser(User user, Long id);
+    void save (User user);
 
     User findByUsername(String firstName);
 
