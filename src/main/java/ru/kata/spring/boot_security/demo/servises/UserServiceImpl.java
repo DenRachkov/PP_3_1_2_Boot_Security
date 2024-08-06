@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void updateUser(User user, Long id) {
         User userDB = userRepository.getById(id);
-        userDB.setLastName(user.getUsername());
+        userDB.setLastName(user.getLastName());
         userDB.setFirstName(user.getFirstName());
         userDB.setAge(user.getAge());
         userDB.setEmail(user.getEmail());
